@@ -138,10 +138,21 @@ class Ultraviolet {
 		}
 	}
 	encodeUrl(str) {
-		return encodeURIComponent(str);
+     if (!str) return str;
+    let result = "";
+    for (let i = 0; i < str.length; i++) {
+      result += i % 2 ? String.fromCharCode(str.charCodeAt(i) ^ 2) : str[i];
+    }
+    return encodeURIComponent(result);
 	}
 	decodeUrl(str) {
-		return decodeURIComponent(str);
+	const decoded = decodeURIComponent(str);
+      let result = "";
+      for (let i = 0; i < decoded.length; i++) {
+        result +=
+          i % 2 ? String.fromCharCode(decoded.charCodeAt(i) ^ 2) : decoded[i];
+      }
+      return result;
 	}
 	implementUVMiddleware() {
 		// HTML
